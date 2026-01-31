@@ -1,23 +1,24 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuddalore Connect | City Guide</title>
-    
+
     <!-- PWA Open -->
-    
+
     <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2563eb">
 <link rel="apple-touch-icon" href="icon-192x192.png">
 
-    
+
     <!-- PWA End  -->
-    
-    
-    
-    
-    
+
+
+
+
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -191,7 +192,7 @@
         .nav-btn.active { color: var(--primary); }
         .nav-btn span { font-size: 22px; margin-bottom: 2px; }
 
-         
+
            /* Weather UI */
         .weather-badge {
             background: linear-gradient(135deg, #2563eb, #60a5fa);
@@ -205,6 +206,19 @@
             margin-bottom: 20px;
         }
         
+        .Cuddalore-offers{
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(90deg, #ffcc00, #ffeb3b);
+  color: #333;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 10px 0;
+  border-radius: 12px;
+  margin: 40px 0 25px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
     </style>
 </head>
 <body>
@@ -216,11 +230,11 @@
 
 <div id="sidebar" class="sidebar">
     <a href="index.html">🏠 Home</a>
-    
+
     <a href="places.html">🏖️ Places</a>
 
     <a href="contact.html">📞 Contact</a> <a href="web.html">🌐 Websites</a> 
-    
+
         <a href="emergency.html">🚑 Emergency</a>
 </div>
 
@@ -259,19 +273,33 @@
             <label>Taxi / Auto</label>
         </div>
     </div>
-
-    <div class="card" style="margin-top: 25px;">
-        <h3>🔔 Local News</h3>
-        <div class="news-item" style="padding: 10px 0; border-bottom: 1px solid #eee;">
-            <b>Silver Beach Festival!</b>
-            <p style="margin:5px 0; font-size:13px; color:#666;">Special events organized this weekend.</p>
-        </div>
-        <div class="news-item" style="padding: 10px 0;">
-            <b>SIPCOT Recruitment Drive</b>
-            <p style="margin:5px 0; font-size:13px; color:#666;">Mega job fair on the 15th of this month.</p>
-        </div>
-    </div>
+    
+<div class="Cuddalore-offers">
+  Cuddalore Offers & Ads
 </div>
+    
+    
+    
+
+<div class="card ad-card" data-expiry="2026-02-10">
+    <h3> Promotions </h3>
+    <a href="https://onlineweb123.github.io/Meadi-Aqua-Tech-Website-/">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1PFrRn63-xEmXhQ4VTAMLtOophWfVQ907" alt="Ads" style="width: 100%; border-radius: 12px;">
+    </a>
+</div>
+
+
+
+<div class="card ad-card" data-expiry="2026-03-05">
+    <h3> Offers </h3>
+    <a href="https://onlineweb123.github.io/Meadi-Aqua-Tech-Website-/">
+        <img src="https://lh3.googleusercontent.com/u/0/d/1PFrRn63-xEmXhQ4VTAMLtOophWfVQ907" alt="Offers" style="width: 100%; border-radius: 12px;">
+    </a>
+</div>
+
+
+
+
 
 <div class="bottom-nav">
     <div class="nav-btn active" onclick="location.href='index.html'">
@@ -298,11 +326,11 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-    
-    
-    
-    
-    
+
+
+
+
+
     // Sidebar Toggle Function
     function toggleMenu() {
         document.getElementById("sidebar").classList.toggle("open");
@@ -327,7 +355,7 @@ if ('serviceWorker' in navigator) {
                 const code = data.current_weather.weathercode;
 
                 tempElement.innerText = `${temperature}°C`;
-                
+
                 // Weather Code Mapping
                 const weatherMap = {
                     0: ["Clear Sky", "☀️"],
@@ -353,11 +381,43 @@ if ('serviceWorker' in navigator) {
 
     // Run weather function when page loads
     window.onload = getWeatherData;
-  
+
+
+
+
+
+
+
+function checkExpiry() {
+    // அனைத்து விளம்பர அட்டைகளையும் கண்டறியவும்
+    const adCards = document.querySelectorAll('.ad-card');
     
-    
-    
-    
+    // இன்றைய தேதியை எடுக்கவும் (நேரம் இல்லாமல் தேதி மட்டும்)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    adCards.forEach(card => {
+        const expiryDateStr = card.getAttribute('data-expiry');
+        if (expiryDateStr) {
+            const expiryDate = new Date(expiryDateStr);
+            
+            // எக்ஸ்பைரி டேட் இன்றைய தேதியை விட குறைவாக இருந்தால் மறைக்கவும்
+            if (expiryDate < today) {
+                card.style.display = 'none';
+                console.log("Expired Ad Removed: " + expiryDateStr);
+            }
+        }
+    });
+}
+
+// பக்கம் லோட் ஆனதும் வெதர் டேட்டாவுடன் இதையும் இயக்கவும்
+window.onload = function() {
+    getWeatherData();
+    checkExpiry(); 
+};
+
+
+
 </script>
 
 </body>
